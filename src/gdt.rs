@@ -8,7 +8,7 @@ pub const DOUBLE_FAULT_IST_INDEX: u16 = 0;
 
 lazy_static! {
     static ref TSS: TaskStateSegment = {
-        let mut tss = TaskStateSegment::new();
+        let mut tss =TaskStateSegment::new();
         tss.interrupt_stack_table[DOUBLE_FAULT_IST_INDEX as usize] = {
             const STACK_SIZE: usize = 4096 * 5;
             static mut STACK: [u8; STACK_SIZE] = [0; STACK_SIZE]; //static mut and not an immutable static, because otherwise the bootloader will map it to a read-only page
