@@ -14,10 +14,10 @@ pub extern "C" fn _start() -> ! {
 
     blog_os::init(); 
 
-    // invoke a breakpoint exception
-    x86_64::instructions::interrupts::int3(); 
+    unsafe {
+        *(0xdeadbeef as *mut u8) = 42;
+    }
 
-    // as before
     #[cfg(test)]
     test_main();
 
