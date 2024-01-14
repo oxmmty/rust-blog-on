@@ -7,24 +7,24 @@
 use blog_os::println;
 use core::panic::PanicInfo;
 
+
 #[no_mangle]
 pub extern "C" fn _start() -> ! {
     println!("Hello World{}", "!");
 
     blog_os::init();
 
-    fn stack_overflow() {
-        stack_overflow(); // for each recursion, the return address is pushed
-    }
+    use x86_64::registers::control::Cr3;
 
-    // uncomment line below to trigger a stack overflow
-    // stack_overflow();
+    let (level_4_page_table, _) = Cr3::read();
+    println!("Level 4 page table at: {:?}", level_4_page_table.start_address());
 
+    // as before
     #[cfg(test)]
     test_main();
 
     println!("It did not crash!");
-     blog_os::hlt_loop();      
+    blog_os::hlt_loop();
 }
 
 /// This function is called on panic.
