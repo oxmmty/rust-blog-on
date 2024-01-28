@@ -6,8 +6,8 @@
 
 extern crate alloc;
 
-use alloc::{boxed::Box, rc::Rc, vec, vec::Vec};
 use blog_os::println;
+use blog_os::task::{executor::Executor, keyboard, Task};
 use bootloader::{entry_point, BootInfo};
 use core::panic::PanicInfo;
 
@@ -36,7 +36,6 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
     executor.run();
 }
 
-
 /// This function is called on panic.
 #[cfg(not(test))]
 #[panic_handler]
@@ -51,11 +50,6 @@ fn panic(info: &PanicInfo) -> ! {
     blog_os::test_panic_handler(info)
 }
 
-#[test_case]
-fn trivial_assertion() {
-    assert_eq!(1, 1);
-}
-
 async fn async_number() -> u32 {
     42
 }
@@ -65,3 +59,7 @@ async fn example_task() {
     println!("async number: {}", number);
 }
 
+#[test_case]
+fn trivial_assertion() {
+    assert_eq!(1, 1);
+}
