@@ -93,3 +93,4 @@ fn test_kernel_main(_boot_info: &'static BootInfo) -> ! {
 fn panic(info: &PanicInfo) -> ! {
     test_panic_handler(info)
 }
+pub mod task;
