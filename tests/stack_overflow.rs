@@ -11,6 +11,7 @@ pub extern "C" fn _start() -> ! {
     blog_os::gdt::init();
     init_test_idt();
 
+
     
     // trigger a stack overflow
     stack_overflow();
